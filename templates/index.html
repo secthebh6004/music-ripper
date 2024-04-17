@@ -1,20 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Music Ripper</title>
+		<script type="text/javascript">
+			function showAdvancedOptions() {
+				if (document.getElementById("advanced_download").checked) {
+					document.getElementById("advanced_options1").style.display = "block";
+					document.getElementById("advanced_options2").style.display = "block";
+				} else {
+					document.getElementById("advanced_options1").style.display = "none";
+					document.getElementById("advanced_options2").style.display = "none";
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<center>
 			<h1>Music Ripper</h1>
-			<h4>A tool for stealing music from YouTube</h4>
-			<br />
-			<br />
+			<p>A tool for stealing music from YouTube</p>
+			<hr>
+			<b>Download Mode:</b><br />
+			<input type="radio" onclick="javascript:showAdvancedOptions()"; name="download_mode" id="simple_download" checked="true">
+			<label for="simple_download">Simple Download</label><br />
+			<input type="radio" onclick="javascript:showAdvancedOptions()"; name="download_mode" id="advanced_download">
+			<label for="advanced_download">Advanced Download</label><br />
+			<hr>
 			<b>Download song from video:</b>
-			<form action="/api/endpoints/rip-song", method="POST">
-
+			<form action="/api/endpoints/rip-song" method="POST">
+				<input type="text" id="video_url" name="video_url" placeholder="YouTube Video URL">
+				<div id="advanced_options1" style="display:none">
+					<input type="text" id="filetype" name="filetype" value="filetype">
+					<input type="text" id="filename" name="filename" value="filename">
+					<input type="text" id="title" name="title" value="title">
+					<input type="text" id="artist" name="artist" value="artist">
+				</div>
+				<input type="submit" value="Rip Song">
 			</form>
 			<b>Download album from playlist:</b>
-
+			<form action="/api/endpoints/rip-album" method="POST">
+				<input type="text" id="playlist_url" name="playlist_url" placeholder="YouTube Video URL">
+				<div id="advanced_options2" style="display:none">
+					<input type="text" id="filetype" name="filetype" value="filetype">
+					<input type="text" id="filename" name="filename" value="filename">
+					<input type="text" id="title" name="title" value="title">
+					<input type="text" id="artist" name="artist" value="artist">
+				</div>
+				<input type="submit" value="Rip Album">
+			</form>
 		</center>
 	</body>
 </html>
