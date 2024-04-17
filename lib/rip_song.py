@@ -5,8 +5,7 @@ import os
 import sys
 import threading
 import subprocess
-import pytube
-import eyed3
+from pytube import YouTube
 
 class SongRipper(object):
 	def __init__(self, dl_request_data):
@@ -16,6 +15,17 @@ class SongRipper(object):
 			dl_request_data["filename"] = None
 			
 		self.dl_request_data = dl_request_data
+		
+	def download(self):
+		yt = YouTube(self.dl_request_data["video_url"])
+		dl_path = os.getcwd()
+		
+		# Fetch tag data if defaults used
+		if self.dl_request_data["title"] == "title" or self.dl_request_data["artist"] == "artist":
+			self.dl_request_data["title"] = yt.title
+			self.dl_request_data["artist"] = None
+			
+		audio_stream = yt.streams.filter(only_audio = True)
 		
 def download(dl_request_data):
 	""" Handle download requests from the webapp or API and return
