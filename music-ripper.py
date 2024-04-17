@@ -8,9 +8,6 @@ A tool for stealing music from YouTube
 
 import os
 import sys
-import subprocess
-import threading
-import eyed3
 import flask
 from lib import rip-song
 from lib import rip-album
@@ -68,13 +65,17 @@ def endpoint_rip_album():
     webapp.log.debug("Webapp route /api/endpoints/rip-album accessed")
 
     dl_request_data = {
-        "playlist_url": flask.request.form["video_url"],
-        "filetype": flask.request.form["filetype"],                "filename": flask.request.form["filename"],
-        "metadata": {                                                  "title": flask.request.form["title"],                      "artist": flask.request.form["artist"],
+        "playlist_url": flask.request.form["playlist_url"],
+        "filetype": flask.request.form["filetype"],
+        "filename": flask.request.form["filename"],
+        "metadata": {
+            "title": flask.request.form["title"],
+            "artist": flask.request.form["artist"],
         }
     }
 
-    # DEBUG                                                    webapp.log.debug(str(dl_request_data))
+    # DEBUG
+    webapp.log.debug(str(dl_request_data))
 
     api_response = rip_album.download(dl_request_data)
     return api_response
