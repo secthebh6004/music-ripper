@@ -9,11 +9,11 @@ A tool for stealing music from YouTube
 import os
 import sys
 import flask
-from lib import rip-song
-from lib import rip-album
+from lib import rip_song
+from lib import rip_album
 
 # Create the Flask application and define routes
-webapp = flask.Flask(__name__)
+app = flask.Flask(__name__)
 
 @app.route("/")
 def index():
@@ -22,10 +22,8 @@ def index():
     Arguments:
         None
     """
-    # DEBUG
-    webapp.log.debug("Webapp route / accessed")
 
-    return "<h1>Music Ripper</h1>"
+    return flask.render_template("index.html")
 
 @app.route("/api/endpoints/rip-song", methods=["POST"])
 def endpoint_rip_song():
@@ -34,9 +32,6 @@ def endpoint_rip_song():
     Arguments:
         None
     """
-    
-    # DEBUG
-    webapp.log.debug("Webapp route /api/endpoints/rip-song accessed")
     
     dl_request_data = {
         "video_url": flask.request.form["video_url"],
@@ -48,9 +43,6 @@ def endpoint_rip_song():
         }
     }
 
-    # DEBUG
-    webapp.log.debug(str(dl_request_data))
-
     api_response = rip_song.download(dl_request_data)
     return api_response
 
@@ -61,8 +53,6 @@ def endpoint_rip_album():
     Arguments:
         None
     """
-    
-    webapp.log.debug("Webapp route /api/endpoints/rip-album accessed")
 
     dl_request_data = {
         "playlist_url": flask.request.form["playlist_url"],
@@ -73,9 +63,6 @@ def endpoint_rip_album():
             "artist": flask.request.form["artist"],
         }
     }
-
-    # DEBUG
-    webapp.log.debug(str(dl_request_data))
 
     api_response = rip_album.download(dl_request_data)
     return api_response
