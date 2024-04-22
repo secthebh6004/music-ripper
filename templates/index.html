@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Music Ripper</title>
+		<title>Music Ripper (v0.1 Beta)</title>
 		<script type="text/javascript">
 			function showAdvancedOptions() {
 				if (document.getElementById("advanced_download").checked) {
@@ -12,38 +12,43 @@
 					document.getElementById("advanced_options2").style.display = "none";
 				}
 			}
+			function displayBetaVersionMsg() {
+				alert("Sorry, this feature has not been implemented yet!");
+			}
 		</script>
 	</head>
 	<body>
 		<center>
-			<h1>Music Ripper</h1>
+			<h1>Music Ripper (v0.1 Beta)</h1>
 			<p>A tool for stealing music from YouTube</p>
 			<hr>
 			<b>Download Mode:</b><br />
 			<input type="radio" onclick="javascript:showAdvancedOptions()"; name="download_mode" id="simple_download" checked="true">
 			<label for="simple_download">Simple Download</label><br />
 			<input type="radio" onclick="javascript:showAdvancedOptions()"; name="download_mode" id="advanced_download">
-			<label for="advanced_download">Advanced Download</label><br />
+			<label for="advanced_download">Advanced Download ([BETA VERSION] Use at own risk!)</label><br />
 			<hr>
 			<b>Download song from video:</b>
 			<form action="/api/endpoints/rip-song" method="POST">
 				<input type="text" id="video_url" name="video_url" placeholder="YouTube Video URL">
 				<div id="advanced_options1" style="display:none">
-					<input type="text" id="filetype" name="filetype" value="filetype">
-					<input type="text" id="filename" name="filename" value="filename">
-					<input type="text" id="title" name="title" value="title">
-					<input type="text" id="artist" name="artist" value="artist">
+					<input type="text" id="filename" name="filename" value="filename" placeholder="File name">
+					<input type="text" id="title" name="title" value="title" placeholder="Song title">
+					<input type="text" id="artist" name="artist" value="artist" placeholder="Artist">
+					<input type="text" id="genre" name="genre" value="genre" placeholder="Genre">
+					<input type="text" id="year" name="year" value="year" placeholder="Release year">
 				</div>
 				<input type="submit" value="Rip Song">
 			</form>
-			<b>Download album from playlist:</b>
-			<form action="/api/endpoints/rip-album" method="POST">
+			<b>Download album from playlist: ([BETA VERSION] Not implemented yet!)</b>
+			<form action="javascript:displayBetaVersionMsg();" method="POST">
 				<input type="text" id="playlist_url" name="playlist_url" placeholder="YouTube Video URL">
 				<div id="advanced_options2" style="display:none">
-					<input type="text" id="filetype" name="filetype" value="filetype">
-					<input type="text" id="filename" name="filename" value="filename">
-					<input type="text" id="title" name="title" value="title">
-					<input type="text" id="artist" name="artist" value="artist">
+					<input type="text" id="filename" name="filename" value="filename" placeholder="File name">
+					<input type="text" id="album_name" name="album_name" value="album_name" placeholder="Album name">
+					<input type="text" id="artist" name="artist" value="artist" placeholder="Artist">
+					<input type="text" id="genre" name="genre" value="genre" placeholder="Genre">
+					<input type="text" id="year" name="year" value="year" placeholder="Release year">
 				</div>
 				<input type="submit" value="Rip Album">
 			</form>
